@@ -2,8 +2,8 @@ package co.edu.uniquindio.poo;
 
 public class Carro extends Vehiculo {
 
-    public Carro(String placa, String modelo){
-        super(placa, modelo);
+    public Carro(String placa, String modelo, Tarifa tarifaVehiculo, Registro registroVehiculo){
+        super(placa, modelo, tarifaVehiculo, registroVehiculo);
     } 
 
     @Override

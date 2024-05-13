@@ -5,12 +5,14 @@ public class Propietario {
     private final String identificacion;
     private final String direccion;
     private final String telefono;
+    private Vehiculo vehiculos;
     
-    public Propietario(String nombre, String identificacion, String direccion, String telefono) {
+    public Propietario(String nombre, String identificacion, String direccion, String telefono, Vehiculo vehiculos) {
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.vehiculos = vehiculos;
     }
 
     public String getNombre() {
@@ -29,10 +31,14 @@ public class Propietario {
         return telefono;
     }
 
+    public Vehiculo getVehiculo(){
+        return vehiculos;
+    }
+    
     @Override
     public String toString() {
         return "Propietario [nombre=" + nombre + ", identificacion=" + identificacion + ", direccion=" + direccion
-                + ", telefono=" + telefono + "]";
+                + ", telefono=" + telefono +", vehiculo=" + vehiculos +"]";
     }
 
 }
