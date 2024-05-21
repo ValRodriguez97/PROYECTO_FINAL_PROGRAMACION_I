@@ -34,4 +34,5 @@ public abstract class Vehiculo {
         return "Vehiculo [placa=" + placa + ", modelo=" + modelo + ", tarifa=" + tarifaVehiculo +"]";
     }
 
+    
 }
