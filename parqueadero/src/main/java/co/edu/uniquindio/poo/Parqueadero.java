@@ -7,11 +7,14 @@ public class Parqueadero {
     private final String nombre;
     private Collection<Vehiculo> vehiculos;
     private Puesto[][] puestos;
+    private int filas; 
+    private int columnas;
     
     public Parqueadero(String nombre, int filas, int columnas) {
         this.nombre = nombre;
         this.vehiculos = new LinkedList<>();
         this.puestos = new Puesto[filas][columnas]; 
+        
     }
 
     public String getNombre() {
@@ -30,6 +33,7 @@ public class Parqueadero {
         return "Parqueadero [nombre=" + nombre + ", vehiculos=" + vehiculos + ", puestos=" + puestos + "]";
     }
 
+
     public void añadirPuesto (Puesto puesto, Posicion posicion){
         if (posicion.getI() >= 0 && posicion.getI() < puestos.length && posicion.getJ() >= 0 && posicion.getJ() < puestos.length){
             puestos[posicion.getI()][posicion.getJ()] = puesto;
@@ -37,9 +41,26 @@ public class Parqueadero {
         
     }
 
+    public void disponibilidadPuesto() {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                puestos[i][j] = new Puesto("Disponible", new Posicion(i, j));
+            }
+        }
+    }
+
      public void añadirVehiculo(Vehiculo vehiculo){
         vehiculos.add(vehiculo);
     }    
+
+    /*public void buscarPropietario (Puesto puesto, int filas, int columnas, String propietario){
+        for (int i = 0; i < puestos.length; i++ ){
+            for (int j = 0; j < puestos.length; j++){
+                Puesto ubicacionPuesto = puestos[i][j];
+                Puesto registro = registro.getRegistroPuesto();
+            }
+        }
+    }*/
 
 }
 

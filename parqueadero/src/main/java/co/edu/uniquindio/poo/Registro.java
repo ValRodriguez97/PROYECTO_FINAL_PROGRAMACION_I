@@ -36,6 +36,14 @@ public class Registro {
         this.registroVehiculo = registroVehiculo;
     }
 
+    public void registrarVehiculo (Vehiculo vehiculo){
+        this.registroVehiculo = vehiculo;
+    }
+
+    public void registroPuesto (Puesto puesto){
+        this.registroPuesto = puesto;
+    }
+
     @Override
     public String toString() {
         return "Registro [fechaIngreso=" + fechaIngreso + ", horaIngreso=" + horaIngreso + ", vehiculo=" + registroVehiculo + ", puesto=" + registroPuesto + "]";
