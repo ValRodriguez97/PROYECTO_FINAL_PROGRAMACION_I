@@ -1,25 +1,40 @@
 package co.edu.uniquindio.poo;
 
 public class Puesto {
-    private final String disponibilidad;
-    private Posicion posicion;
+    private Vehiculo vehiculo;
+    private int i;
+    private int j;
 
-    public Puesto(String disponibilidad, Posicion posicion) {
-        this.disponibilidad = disponibilidad;
+    public Puesto(int i, int j) {
+        this.vehiculo = null;
+        this.i = i;
+        this.j = j;
     }
 
-    public String getDisponibilidad() {
-        return disponibilidad;
+    public int getI(){
+        return i;
+    }    
+
+    public int getJ (){
+        return j;
     }
 
-    public Posicion getPosicion() {
-        return posicion;
-    } 
-
-    @Override
-    public String toString() {
-        return "Puesto [disponibilidad=" + disponibilidad + ", posicion=" + posicion + "]";
+    public boolean noDisponible(){
+        return vehiculo != null;
     }
+
+    public Vehiculo getVehiculo(){
+        return vehiculo;
+    }
+
+    public void ocuparPuesto (Vehiculo vehiculo){
+        this.vehiculo = vehiculo;
+    }
+
+    public void desocuparPuesto (){
+        this.vehiculo = null;
+    }
+
 
 
 }

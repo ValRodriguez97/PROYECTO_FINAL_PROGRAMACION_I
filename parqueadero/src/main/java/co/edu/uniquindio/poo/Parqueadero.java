@@ -6,16 +6,42 @@ import java.util.LinkedList;
 public class Parqueadero {
     private final String nombre;
     private Collection<Vehiculo> vehiculos;
+    private Collection<Registro> registros;
     private Puesto[][] puestos;
     private int filas; 
     private int columnas;
+    private Tarifa tarifaCarro;
+    private Tarifa tarifaMotoClasica;
+    private Tarifa tarifaMoroHibrida;
     
-    public Parqueadero(String nombre, int filas, int columnas) {
+    
+    public Parqueadero(String nombre, int filas, int columnas, Tarifa tarifaCarro, Tarifa tarifaMotoHibrida, Tarifa tarifaMotoClasica) {
+        assert filas > 0 && columnas > 0;
         this.nombre = nombre;
         this.vehiculos = new LinkedList<>();
-        this.puestos = new Puesto[filas][columnas]; 
+        this.puestos = new Puesto[filas][columnas];
+        this.registros = new LinkedList<>(); 
+        this.tarifaCarro = tarifaCarro;
+        this.tarifaMoroHibrida = tarifaMotoHibrida;
+        this.tarifaMotoClasica = tarifaMotoClasica;
         
+        for (int i = 0; i < filas; i++){
+            for (int j = 0; j < columnas; j++){
+                puestos[i][j] = new Puesto(i, j);
+            }
+        }
     }
+    public Tarifa getTarifaCarro(){
+        return tarifaCarro;
+    }
+    public Tarifa getTarifaMotoHibrida(){
+        return tarifaMoroHibrida;
+    }
+    public Tarifa getTarifaMotoClasica(){
+        return tarifaMotoClasica;
+    }
+   
+
 
     public String getNombre() {
         return nombre;
@@ -33,25 +59,30 @@ public class Parqueadero {
         return "Parqueadero [nombre=" + nombre + ", vehiculos=" + vehiculos + ", puestos=" + puestos + "]";
     }
 
-
-    public void añadirPuesto (Puesto puesto, Posicion posicion){
-        if (posicion.getI() >= 0 && posicion.getI() < puestos.length && posicion.getJ() >= 0 && posicion.getJ() < puestos.length){
-            puestos[posicion.getI()][posicion.getJ()] = puesto;
-        }
-        
+    public boolean disponibilidad (int i, int j){
+        return !puestos[i][j].noDisponible();
+    }
+    public void ubicarVehiculo(int i, int j, Vehiculo vehiculo){
+        if (disponibilidad(i, j)){
+            puestos[i][j].ocuparPuesto(vehiculo);
+            registros.add(new Registro(puestos[i][j], vehiculo));
+        } 
     }
 
-    public void disponibilidadPuesto() {
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                puestos[i][j] = new Puesto("Disponible", new Posicion(i, j));
-            }
+    public Propietario buscPropietario(int i, int j){
+        if (puestos[i][j].noDisponible()){
+            return puestos[i][j].getVehiculo().getPropietario();
         }
+        return null;
     }
 
-     public void añadirVehiculo(Vehiculo vehiculo){
-        vehiculos.add(vehiculo);
-    }    
+   
+    public void calcularValorEstacionamiento (Vehiculo vehiculo){
+        double valor = 0;
+
+    }
+    
+    
 
     /*public void buscarPropietario (Puesto puesto, int filas, int columnas, String propietario){
         for (int i = 0; i < puestos.length; i++ ){
