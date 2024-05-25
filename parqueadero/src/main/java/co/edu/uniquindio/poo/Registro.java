@@ -8,24 +8,25 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class Registro {
-    private final LocalDate fechaIngreso;
-    private final LocalTime horaIngreso;
+    private LocalDateTime ingreso;
+    private LocalDateTime salida;
     private Vehiculo registroVehiculo;
     private Puesto registroPuesto;
 
-    public Registro(LocalDate fechaIngreso, LocalTime horaIngreso, Puesto registroPuesto, Vehiculo registroVehiculo) {
-        this.fechaIngreso = fechaIngreso;
-        this.horaIngreso = horaIngreso;
+    public Registro(Puesto registroPuesto, Vehiculo registroVehiculo) {
+        this.ingreso = LocalDateTime.now();
         this.registroPuesto = registroPuesto;
         this.registroVehiculo = registroVehiculo;
+        assert registroPuesto != null;
+        assert registroVehiculo != null;
     }
     
-    public LocalDate getFechaIngreso() {
-        return fechaIngreso;
+    public LocalDateTime getIngreso() {
+        return ingreso;
     }
     
-    public LocalTime getHoraIngreso() {
-        return horaIngreso;
+    public LocalDateTime getSalida() {
+        return salida;
     }
 
     public Vehiculo getRegistroVehiculo() {
@@ -40,17 +41,65 @@ public class Registro {
         this.registroVehiculo = registroVehiculo;
     }
 
-    public void registrarVehiculo (Vehiculo vehiculo){
-        this.registroVehiculo = vehiculo;
+    public void salidaVehiculo (LocalDateTime salida){
+        assert salida != null;
+        this.salida = salida;
     }
 
-    public void registroPuesto (Puesto puesto){
-        this.registroPuesto = puesto;
+    public double calcularValorEstacionamiento(){
+        double valor = 0;
+        if (ingreso != null && salida != null){
+            long tiempo = Duration.between(ingreso, salida).toHours();
+            valor = tiempo * registroVehiculo.getTarifa().getValorHora();
+        }
+        return valor;
     }
+
+    public double calcularTarifa(Vehiculo vehiculo) {
+        double valorTotal = 0;
+        if (ingreso != null && salida != null) {
+            long tiempoHoras = Duration.between(ingreso, salida).toHours();
+            if (registroVehiculo instanceof Carro) {
+                valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaCarro();
+            } else if (registroVehiculo instanceof Moto) {
+                Moto moto = (Moto) registroVehiculo;
+                if (moto.getTipoMoto() == TipoMoto.CLASICA) {
+                    valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaMotoClasica();
+                } else {
+                    valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaMotoHibrida();
+                }
+            }
+        }
+        return valorTotal;
+    }
+
+   /*public double calcularTarifa(Vehiculo vehiculo){
+        double valor = 0;
+        if (ingreso != null && salida != null){
+            long tiempo = Duration.between(salida, ingreso).toHours();
+            if (vehiculo instanceof Carro){
+                valor = tiempo * vehiculo.getTarifa().getValorHora();
+            }
+        }
+        int tiempoEstacionado = calcularTiempo(ingreso, salida);
+        double tarifaPorHora = ;
+        if (vehiculo instanceof Carro){
+            vehiculo.getTarifa();
+        }
+        else if(vehiculo instanceof Moto){
+            Moto moto = (Moto) vehiculo;
+            if (moto.getTipoMoto()== TipoMoto.HIBRIDA){
+                moto.getTarifa();
+            }
+        }
+        return tiempo* tarifaPorHora;
+    }
+ }*/
 
     @Override
     public String toString() {
-        return "Registro [fechaIngreso=" + fechaIngreso + ", horaIngreso=" + horaIngreso + ", vehiculo=" + registroVehiculo + ", puesto=" + registroPuesto + "]";
+        return "Registro [ingreso=" + ingreso + ", salida=" + salida + ", registroVehiculo=" + registroVehiculo
+                + ", registroPuesto=" + registroPuesto + "]";
     }
 
     /**
@@ -62,15 +111,15 @@ public class Registro {
         double dineroRecaudadoMotoClasica = 0.0;
 
         for (Registro registro : registros) {
-            if (registro.getFechaEntrada().toLocalDate().isEqual(fecha) && registro.getFechaSalida() != null) {
-                Vehiculo vehiculo = registro.getVehiculo();
-                double tarifa = registro.calcularTarifa();
+            if (registro.getIngreso().toLocalDate().isEqual(fecha) && registro.getSalida() != null) {
+                Vehiculo vehiculo = registro.getRegistroVehiculo();
+                double tarifa = registro.calcularValorEstacionamiento();
 
                 if (vehiculo instanceof Carro) {
                     dineroRecaudadoCarro += tarifa;
                 } else if (vehiculo instanceof Moto) {
                     Moto moto = (Moto) vehiculo;
-                    if (moto.getTipoMoto() == TipoMoto.MOTO_CLASICA) {
+                    if (moto.getTipoMoto() == TipoMoto.CLASICA) {
                         dineroRecaudadoMotoClasica += tarifa;
                     } else {
                         dineroRecaudadoMotoHibrida += tarifa;
@@ -86,20 +135,38 @@ public class Registro {
         return reporteDiario;
     }
 /**
-     * Método para clacular el tiempo que estuvo estacionado un vehiculo
+     * Método para calcular el tiempo que estuvo estacionado un vehiculo
      */
 
     public int calcularTiempo(LocalDateTime fechaEntrada, LocalDateTime fechaSalida){
         Duration tiempo = Duration.between(fechaEntrada, fechaSalida);
         long horas = tiempo.toHours();
-        return (int) horas ;
+        return (int) horas;
     }
 
      /**
      * Método para clacular el precio de la tarifa para cualquier vehiculo
      */
     
-    public double calcularTarifa(){
+     public double calcularTarifa() {
+        double valorTotal = 0;
+        if (ingreso != null && salida != null) {
+            long tiempoHoras = Duration.between(ingreso, salida).toHours();
+            if (registroVehiculo instanceof Carro) {
+                valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaCarro();
+            } else if (registroVehiculo instanceof Moto) {
+                Moto moto = (Moto) registroVehiculo;
+                if (moto.getTipoMoto() == TipoMoto.CLASICA) {
+                    valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaMotoClasica();
+                } else {
+                    valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaMotoHibrida();
+                }
+            }
+        }
+        return valorTotal;
+    }
+
+    /*public double calcularTarifa(){
         int tiempoEstacionado = calcularTiempo(fechaEntrada, fechaSalida);
         double tarifaPorHora = vehiculo.getTarifa();
         if (vehiculo instanceof Carro){
@@ -111,8 +178,9 @@ public class Registro {
                 moto.getTarifa();
             }
         }
-        return tiempoEstacionado * tarifa
-public void registrarSalidaVehiculo(Vehiculo vehiculo) {
+        return tiempoEstacionado * tarifa*/
+
+/*public void registrarSalidaVehiculo(Vehiculo vehiculo) {
         // Iterar sobre cada registro en el historial de registros del parqueadero
         for (Registro registro : historialRegistros) {
             // Verificar si el vehículo en el registro coincide con el vehículo que se va a retirar
@@ -130,6 +198,6 @@ public void registrarSalidaVehiculo(Vehiculo vehiculo) {
                 break;
             }
         }
-    }
+    }*/
 
 }
