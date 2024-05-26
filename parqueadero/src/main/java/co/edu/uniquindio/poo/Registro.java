@@ -66,6 +66,14 @@ public class Registro {
         this.registroVehiculo = registroVehiculo;
     }
 
+    public void setIngreso(LocalDateTime ingreso) {
+        this.ingreso = ingreso;
+    }
+
+    public void setSalida(LocalDateTime salida) {
+        this.salida = salida;
+    }
+    
     /*
      * Método para registrar la salida de un vehículo
      */
@@ -96,21 +104,26 @@ public class Registro {
      * Método para calcular el precio de la tarifa para cualquier vehiculo
      */
     
+ 
      public double calcularTarifa() {
+        if (ingreso == null || salida == null) {
+            throw new IllegalStateException("El vehículo no tiene tiempo de ingreso o salida registrado.");
+        }
+        long tiempoMinutos = Duration.between(ingreso, salida).toMinutes();
+        int tiempoHoras = (int) Math.ceil(tiempoMinutos / 60.0);
         double valorTotal = 0;
-        if (ingreso != null && salida != null) {
-            long tiempoHoras = Duration.between(ingreso, salida).toHours();
-            if (registroVehiculo instanceof Carro) {
-                valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaCarro();
-            } else if (registroVehiculo instanceof Moto) {
-                Moto moto = (Moto) registroVehiculo;
-                if (moto.getTipoMoto() == TipoMoto.CLASICA) {
-                    valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaMotoClasica();
-                } else {
-                    valorTotal = tiempoHoras * registroVehiculo.getTarifa().getTarifaMotoHibrida();
-                }
+        Tarifa tarifa = registroVehiculo.getTarifa();
+        if (registroVehiculo instanceof Carro) {
+            valorTotal = tiempoHoras * tarifa.getTarifaCarro();
+        } else if (registroVehiculo instanceof Moto) {
+            Moto moto = (Moto) registroVehiculo;
+            if (moto.getTipoMoto() == TipoMoto.CLASICA) {
+                valorTotal = tiempoHoras * tarifa.getTarifaMotoClasica();
+            } else if (moto.getTipoMoto() == TipoMoto.HIBRIDA) {
+                valorTotal = tiempoHoras * tarifa.getTarifaMotoHibrida();
             }
         }
+
         return valorTotal;
     }
 

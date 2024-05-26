@@ -30,6 +30,15 @@ public class ParqueaderoTest {
         assertEquals(2, horas);  
     }
 
+    @Test
+    public void testCalcularTarifaDuracionParcial() {
+         Tarifa tarifa = new Tarifa(4000, 3000, 2000);
+         Propietario propietario = new Propietario("James", "1037183721", "Calle 32 #21", "31218827");
+         Vehiculo motoClasica = new Moto("XYZ789", "Honda", 
+        registro.setIngreso(LocalDateTime.of(2024, 5, 25, 10, 0));
+        registro.setSalida(LocalDateTime.of(2024, 5, 25, 11, 42));
+        assertEquals(4000, registro.calcularTarifa()); // Redondea a la siguiente hora
+    }
 }
 
 
