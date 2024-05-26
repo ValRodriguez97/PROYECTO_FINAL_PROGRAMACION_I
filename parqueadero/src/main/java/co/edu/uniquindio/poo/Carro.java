@@ -7,12 +7,12 @@ public class Carro extends Vehiculo {
      * @param modelo
      * @param propietario
      */
-    public Carro(String placa, String modelo, Tarifa tarifaVehiculo, Registro registroVehiculo, Propietario propietario){
-        super(placa, modelo, tarifaVehiculo, registroVehiculo, propietario);
+    public Carro(String placa, String modelo, Propietario propietario){
+        super(placa, modelo, propietario);
     } 
 
     /*
-     * Método toString 
+     * @return cadena de texto que representa el objeto Carro 
      */
     @Override
     public String toString() {

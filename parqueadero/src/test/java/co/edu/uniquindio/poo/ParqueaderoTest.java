@@ -1,29 +1,21 @@
 package co.edu.uniquindio.poo;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 public class ParqueaderoTest {
-
     @Test
-    public void crearParqueadero(){
-        var parqueadero = new Parqueadero("Carros y motos", 5, 5);
-        var posicion = new Posicion(2, 3);
-        var puesto = new Puesto("Abierto", posicion);
-        parqueadero.añadirPuesto(puesto, posicion);
-        
-        //assertEquals(puesto.getPosicion(), parqueadero.getPuesto());
-        System.out.println(parqueadero.getPuestos().length);
+    public void disponibilidadParqueadero (){
+        var tarifa = new Tarifa(4000, 3000, 2000);
+        var parquadero = new Parqueadero("Las clinas", 5, 3, tarifa);
+        assertTrue(parquadero.disponibilidad(0, 0));
+        parquadero.ubicarVehiculo(0,0, new Moto("351293", "YAMAHA", 
+        new Propietario("James", "1037183721", "Calle 32 #21", "31218827"),
+         TipoMoto.CLASICA, 320));
+         parquadero.ubicarVehiculo(0,0, new Moto("351293", "YAMAHA", 
+        new Propietario("James", "1037183721", "Calle 32 #21", "31218827"),
+         TipoMoto.CLASICA, 320));
     }
 }
-
-   /* @Test
-    public void testDisponibilidadPuesto(){
-        LOG.info("Inicio test para probar la disponibilidad de los puestos");
-        var parqueadero = new Parqueadero("Parqueadero 24 horas", 5, 5);
-        parqueadero.disponibilidadPuesto;
-        for (int i = 0; i < p.getPuestos; i++){
-            for (int j = 0; j <)
-        }
-        assertEquals("Disponible", parqueadero.getPuestos()[i][j].getDisponibilidad());
-        LOG.info("Fin test para probar la disponibilidad de los puestos");
-    }*/

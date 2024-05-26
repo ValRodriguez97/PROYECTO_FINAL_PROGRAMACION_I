@@ -7,11 +7,9 @@ public abstract class Vehiculo {
     private Registro registroVehiculo;
     private Propietario propietario;
     
-    public Vehiculo(String placa, String modelo, Tarifa tarifaVehiculo, Registro registroVehiculo, Propietario propietario) {
+    public Vehiculo(String placa, String modelo, Propietario propietario) {
         this.placa = placa;
         this.modelo = modelo;
-        this.tarifaVehiculo = tarifaVehiculo;
-        this.registroVehiculo = registroVehiculo;
         this.propietario = propietario;
     }
 
