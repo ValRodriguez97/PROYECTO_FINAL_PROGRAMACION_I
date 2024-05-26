@@ -134,12 +134,15 @@ public class Parqueadero {
     /*
      * Método para ubicar un vehiculo en un determinado puesto
      */
-    public void ubicarVehiculo(int i, int j, Vehiculo vehiculo){
+    public boolean ubicarVehiculo(int i, int j, Vehiculo vehiculo){
         if (disponibilidad(i, j)){
             puestos[i][j].ocuparPuesto(vehiculo);
             registros.add(new Registro(puestos[i][j], vehiculo));
-            System.out.println(registros);
-        } 
+            return true;
+        } else if (puestos[i][j].getVehiculo() != null && puestos[i][j].getVehiculo().getPlaca().equals(vehiculo.getPlaca())) {
+            return false;
+        }
+        return false;
     }
    
      /**
