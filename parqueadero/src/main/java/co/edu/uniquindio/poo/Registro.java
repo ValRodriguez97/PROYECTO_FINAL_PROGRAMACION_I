@@ -85,14 +85,15 @@ public class Registro {
      * Método para calcular el tiempo que estuvo estacionado un vehiculo
      */
 
-    public int calcularTiempo(LocalDateTime fechaEntrada, LocalDateTime fechaSalida){
+     public static int calcularTiempo(LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
         Duration tiempo = Duration.between(fechaEntrada, fechaSalida);
-        long horas = tiempo.toHours();
-        return (int) horas;
+        long minutos = tiempo.toMinutes();
+        int horas = (int) Math.ceil(minutos / 60.0);
+        return horas;
     }
 
      /**
-     * Método para clacular el precio de la tarifa para cualquier vehiculo
+     * Método para calcular el precio de la tarifa para cualquier vehiculo
      */
     
      public double calcularTarifa() {
