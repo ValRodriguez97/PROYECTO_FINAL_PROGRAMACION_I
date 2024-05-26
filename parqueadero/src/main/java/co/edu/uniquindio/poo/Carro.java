@@ -7,8 +7,8 @@ public class Carro extends Vehiculo {
      * @param modelo
      * @param propietario
      */
-    public Carro(String placa, String modelo, Propietario propietario){
-        super(placa, modelo, propietario);
+    public Carro(String placa, String modelo, Tarifa tarifaVehiculo, Propietario propietario){
+        super(placa, modelo, tarifaVehiculo, propietario);
     } 
 
     /*

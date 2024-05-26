@@ -11,11 +11,11 @@ public class Moto extends Vehiculo{
      * @param modelo de la moto
      * @param 
      */
-    public Moto(String placa, String modelo, Propietario propietario, TipoMoto tipoMoto, double velocidadMaxima){
-        super(placa, modelo, propietario);
+    public Moto(String placa, String modelo, Tarifa tarifaVehiculo, Propietario propietario, TipoMoto tipoMoto, double velocidadMaxima){
+        super(placa, modelo, tarifaVehiculo, propietario);
         assert velocidadMaxima >= 0;
         this.tipoMoto = tipoMoto;
-        this.velocidadMaxima =velocidadMaxima;
+        this.velocidadMaxima = velocidadMaxima;
     }
     
     /*
