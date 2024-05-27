@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 public class ParqueaderoTest {
     private static final Logger LOG = Logger.getLogger(AppTest.class.getName());
 
-    //vale, puedes ir colocando lo de los LOG? es en cada prueba 
     @Test
     public void disponibilidadParqueadero() {
         LOG.info("Inicio Test");
@@ -25,10 +24,13 @@ public class ParqueaderoTest {
         assertTrue(parqueadero.disponibilidad(0, 0)); 
         parqueadero.ubicarVehiculo(0, 0, vehiculo);
         assertFalse(parqueadero.disponibilidad(0, 0));
+        LOG.info("Fin Test");
     }
+
 
     @Test
     public void calcularTarifa() {
+        LOG.info("Inicio Test");
         Parqueadero parqueadero = new Parqueadero("Las ", 3, 5, new Tarifa(4000, 3000, 2000));
         Vehiculo motoClasica = new Moto("XYZ789", "Honda", new Propietario("James", "1037183721", "Calle 32 #21", "31218827")
         , TipoMoto.CLASICA, 200);
@@ -37,10 +39,12 @@ public class ParqueaderoTest {
         registro.setIngreso(LocalDateTime.of(2024, 5, 25, 10, 0));
         registro.setSalida(LocalDateTime.of(2024, 5, 25, 11, 42));
         assertEquals(4000, parqueadero.calcularTarifa(registro)); 
+        LOG.info("Fin Test");
     }
 
     @Test
     public void ubicarVehiculoEnPuestoNoDisponible() {
+        LOG.info("Inicio Test");
         Tarifa tarifa = new Tarifa(4000, 3000, 2000);
         Parqueadero parqueadero = new Parqueadero("Las clinas", 5, 3, tarifa);
         Propietario propietario = new Propietario("James", "1037183721", "Calle 32 #21", "31218827");
@@ -49,27 +53,33 @@ public class ParqueaderoTest {
         assertTrue(parqueadero.ubicarVehiculo(0, 0, moto1));
         assertFalse(parqueadero.ubicarVehiculo(0, 0, moto2));
         assertTrue(parqueadero.ubicarVehiculo(0, 1, moto2));
+        LOG.info("Fin Test");
     }
 
     @Test
     public void registroPuesto() {
+        LOG.info("Inicio Test");
         Propietario propietario = new Propietario("James", "1037183721", "Calle 32 #21", "31218827");
         Vehiculo moto = new Moto("XYZ789", "Honda",propietario, TipoMoto.HIBRIDA, 120);
         
         assertThrows(AssertionError.class, () -> {
             new Registro(null, moto);
         });
+        LOG.info("Fin Test");
     }
 
     @Test
     public void registroVehiculoNulo() {
+        LOG.info("Inicio Test");
         Tarifa tarifa = new Tarifa(3000, 1000, 4000);
         Parqueadero parqueadero = new Parqueadero("Las colinas", 5, 5, tarifa);
         assertThrows(Throwable.class, ()-> parqueadero.ubicarVehiculo(0, 0, null));
+        LOG.info("Fin Test");
     }
 
     @Test
     public void generarReporteDiario() {
+        LOG.info("Inicio Test");
         var tarifa = new Tarifa(3000, 2000, 3000);
         Parqueadero parqueadero = new Parqueadero("Las colinas", 4, 4, tarifa);
         Vehiculo carro = new Carro("ABC123", "ModeloCarro", new Propietario("Valen", "1094898396", "15", "315678987"));
@@ -83,14 +93,14 @@ public class ParqueaderoTest {
         parqueadero.registrarSalidaVehiculo(carro, LocalDateTime.of(2024, 5, 27, 11, 42));
         parqueadero.registrarSalidaVehiculo(motoClasica, LocalDateTime.of(2024, 5, 27, 11, 42));
         parqueadero.registrarSalidaVehiculo(motoHibrida, LocalDateTime.of(2024, 5, 27, 11, 42));
-        //Registro registro = new Registro(parqueadero.getPuestos()[1][1], carro); 
-        //registro.setIngreso(LocalDateTime.of(2024, 5, 25, 10, 0));
 
         parqueadero.generarReporteDiario();
+        LOG.info("Fin Test");
     }  
 
     @Test 
     public void generarReporteMensual(){
+        LOG.info("Inicio Test");
         var tarifa = new Tarifa(3000, 2000, 3000);
         Parqueadero parqueadero = new Parqueadero("Las colinas", 4, 4, tarifa);
         Vehiculo carro = new Carro("ABC123", "ModeloCarro", new Propietario("Valen", "1094898396", "15", "315678987"));
@@ -106,27 +116,32 @@ public class ParqueaderoTest {
         parqueadero.registrarSalidaVehiculo(motoHibrida, LocalDateTime.of(2024, 5, 27, 11, 42));
 
         parqueadero.generarReporteMensual(5, 2024);
+        LOG.info("Fin Test");
     }
       
     @Test 
     public void tarifaMayor(){
-   
+        LOG.info("Inicio Test");
         Tarifa tarifa = new Tarifa(0, 0, 0);
         assertTrue(tarifa.getTarifaCarro() >= 0, "La tarifa del carro debe ser mayor a 0");
         assertTrue(tarifa.getTarifaMotoClasica()>=0, "La tarifa de la moto clasica debe ser mayor a 0");
         assertTrue(tarifa.getTarifaMotoHibrida()>=0, "La tarifa de la moto hibrida debe ser mayor a 0");
+        LOG.info("Fin Test");
 
     }    
 
     @Test
     public void datosCompletosPorpietario(){
+        LOG.info("Inicio Test");  
         Propietario propietario = new Propietario("Valentina", "109489839", "M15-16", "3127659191");
      
         assertEquals(propietario, propietario);
+        LOG.info("Fin Test");
     }
 
     @Test
     public void testIdentificarPropietario() {
+        LOG.info("Inicio Test");
         Tarifa tarifa = new Tarifa(200,500,600);
         Parqueadero parqueadero = new Parqueadero("la 59",5,7,tarifa);
         Propietario propietario = new Propietario("maya","12345678388","w23","3156783456");
@@ -134,8 +149,7 @@ public class ParqueaderoTest {
 
         parqueadero.ubicarVehiculo(0, 0, carro);
         assertEquals(propietario, parqueadero.identificarPropietario(0, 0));
-
-        
+        LOG.info("Fin Test");
     }
 
  }
