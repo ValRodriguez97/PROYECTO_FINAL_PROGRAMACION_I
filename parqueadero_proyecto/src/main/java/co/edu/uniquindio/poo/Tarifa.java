@@ -4,8 +4,7 @@ public class Tarifa {
     private double tarifaCarro;
     private double tarifaMotoHibrida;
     private double tarifaMotoClasica;
-    private int valorHora;
-
+    
     /*
      * Método Constructor de la clase Tarifa
      * 
@@ -14,9 +13,9 @@ public class Tarifa {
      * @param tarifa moto clásica
      */
     public Tarifa(double tarifaCarro, double tarifaMoroHibrida, double tarifaMotoClasica){
-        assert tarifaCarro >= 0;
-        assert tarifaMoroHibrida >= 0;
-        assert tarifaMotoClasica >= 0;
+        assert tarifaCarro >= 0: "La tarifa para carros debe ser mayor o igual a cero";
+        assert tarifaMoroHibrida >= 0: "La tarifa para motos híbridas debe ser mayor o igual a cero";
+        assert tarifaMotoClasica >= 0: "La tarifa para motos clásicas debe ser mayor o igual a cero";
         this.tarifaCarro = tarifaCarro;
         this.tarifaMotoClasica = tarifaMotoClasica;
         this.tarifaMotoHibrida = tarifaMoroHibrida;
@@ -76,12 +75,9 @@ public class Tarifa {
         this.tarifaMotoClasica = tarifaMotoClasica;
     }
 
-    /*
-     * Método 
-     */
     @Override
     public String toString() {
-        return "Tarifa [valorHora=" + valorHora + "]";
+        return "Tarifa [tarifaCarro=" + tarifaCarro + ", tarifaMotoHibrida=" + tarifaMotoHibrida
+                + ", tarifaMotoClasica=" + tarifaMotoClasica + "]";
     }
-
 }

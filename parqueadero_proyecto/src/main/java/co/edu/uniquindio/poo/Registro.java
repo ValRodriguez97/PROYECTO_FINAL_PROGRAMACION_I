@@ -41,7 +41,6 @@ public class Registro {
         return registroVehiculo;
     }
 
-
     /*
      * Método para obtener el ingreso de un vehículo
      * 
@@ -61,45 +60,64 @@ public class Registro {
 
     }
 
-
+    /*
+     * Método para establecer el registro de un puesto
+     * 
+     * @param registro puesto
+     */
     public void setRegistroPuesto (Puesto registroPuesto){
         this.registroPuesto = registroPuesto;
     }
 
     /*
-     * Método 
+     * Método para establecer el registro de un vehículo
+     *
+     * @param registro vehículo
      */
     public void setRegistroVehiculo(Vehiculo registroVehiculo) {
         this.registroVehiculo = registroVehiculo;
     }
 
+    /*
+     * Método para establecer el ingreso de un vehículo al parqueadero
+     * 
+     * @param ingreso
+     */
     public void setIngreso(LocalDateTime ingreso) {
         this.ingreso = ingreso;
     }
     
     /*
      * Método para registrar la salida de un vehículo
+     *
+     * param salida
      */
     public void setSalida (LocalDateTime salida){
-        assert salida != null;
+        assert salida != null:"La salida del vehículo debe de ser diferente de cero";
         this.salida = salida;
     }
+   
+    /**
+     * Método para calcular el tiempo que estuvo estacionado un vehiculo
+     * 
+     * @return horas
+     */
 
+     public int calcularTiempo() {
+        Duration tiempo = Duration.between(ingreso, salida);
+        long minutos = tiempo.toMinutes();
+        int horas = (int) Math.ceil(minutos / 60.0);
+        return horas;
+    }
+
+     /*
+     * Método que devuelve una representación en forma de cadena de Registro
+     *
+     * @return una cadena que represente Registro
+     */
     @Override
     public String toString() {
         return "Registro [ingreso=" + ingreso + ", salida=" + salida + ", registroVehiculo=" + registroVehiculo
                 + ", registroPuesto=" + registroPuesto + "]";
-    }
-
-   
-/**
-     * Método para calcular el tiempo que estuvo estacionado un vehiculo
-     */
-
-     public static int calcularTiempo(LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
-        Duration tiempo = Duration.between(fechaEntrada, fechaSalida);
-        long minutos = tiempo.toMinutes();
-        int horas = (int) Math.ceil(minutos / 60.0);
-        return horas;
     }
 }

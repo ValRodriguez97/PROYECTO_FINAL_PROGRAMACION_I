@@ -12,7 +12,7 @@ public class Puesto {
      * @param j
      */
     public Puesto(int i, int j) {
-        this.vehiculo = null;
+        assert i >= 0 && j >= 0 : "¡Error! El puesto no puede ser menor a 0";
         this.i = i;
         this.j = j;
     }

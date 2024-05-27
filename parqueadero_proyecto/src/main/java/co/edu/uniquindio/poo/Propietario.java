@@ -15,10 +15,10 @@ public class Propietario {
      * @param teléfono del propietario
      */
     public Propietario(String nombre, String identificacion, String direccion, String telefono) {
-        assert nombre != null && !nombre.isBlank();
-        assert identificacion != null && !identificacion.isBlank();
-        assert direccion != null && !direccion.isBlank();
-        assert telefono != null && !telefono.isBlank();
+        assert nombre != null && !nombre.isBlank():"El nombre no puede ser nulo o vacío";
+        assert identificacion != null && !identificacion.isBlank():"La identificación no puede ser nula o vacía";
+        assert direccion != null && !direccion.isBlank():"La dirección no puede ser nula o vacía"; 
+        assert telefono != null && !telefono.isBlank():"El teléfono no puede ser nulo o vacío";
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.direccion = direccion;

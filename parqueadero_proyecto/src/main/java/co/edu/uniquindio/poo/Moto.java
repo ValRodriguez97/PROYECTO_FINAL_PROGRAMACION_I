@@ -13,7 +13,7 @@ public class Moto extends Vehiculo{
      */
     public Moto(String placa, String modelo, Propietario propietario, TipoMoto tipoMoto, double velocidadMaxima){
         super(placa, modelo, propietario);
-        assert velocidadMaxima >= 0;
+        assert velocidadMaxima >= 0:"La velocidad máxima no puede ser menor a cero";
         this.tipoMoto = tipoMoto;
         this.velocidadMaxima =velocidadMaxima;
     }
