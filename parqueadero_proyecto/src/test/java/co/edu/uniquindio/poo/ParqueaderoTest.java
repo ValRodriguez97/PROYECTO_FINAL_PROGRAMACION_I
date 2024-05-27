@@ -33,21 +33,21 @@ public class ParqueaderoTest {
 
     @Test
     public void calcularTarifa() {
-        Tarifa tarifa = new Tarifa(4000, 3000, 2000);
-        Propietario propietario = new Propietario("James", "1037183721", "Calle 32 #21", "31218827");
-        Vehiculo motoClasica = new Moto("XYZ789", "Honda", tarifa, propietario, TipoMoto.CLASICA, 200);
-        Registro registro = new Registro(new Puesto(0, 0), motoClasica);
+        Parqueadero parqueadero = new Parqueadero("Las ", 3, 5, new Tarifa(4000, 3000, 2000));
+        Vehiculo motoClasica = new Moto("XYZ789", "Honda", new Propietario("James", "1037183721", "Calle 32 #21", "31218827");
+        , TipoMoto.CLASICA, 200);
+        parqueadero.ubicarVehiculo(0, 0, motoClasica);        Registro registro = new Registro(new Puesto(0, 0), motoClasica);
         registro.setIngreso(LocalDateTime.of(2024, 5, 25, 10, 0));
         registro.setSalida(LocalDateTime.of(2024, 5, 25, 11, 42));
-        assertEquals(4000, registro.calcularTarifa()); 
+        assertEquals(4000, parqueadero.calcularTarifa(registro)); 
     }
 
     @Test
     public void ubicarVehiculoEnPuestoNoDisponible() {
         Tarifa tarifa = new Tarifa(4000, 3000, 2000);
         Propietario propietario = new Propietario("James", "1037183721", "Calle 32 #21", "31218827");
-        Vehiculo moto1 = new Moto("XYZ789", "Honda", tarifa, propietario, TipoMoto.CLASICA, 120);
-        Vehiculo moto2 = new Moto("XYZ789", "Honda", tarifa, propietario, TipoMoto.CLASICA, 120);
+        Vehiculo moto1 = new Moto("XYZ789", "Honda", propietario, TipoMoto.CLASICA, 120);
+        Vehiculo moto2 = new Moto("XYZ789", "Honda", propietario, TipoMoto.CLASICA, 120);
         Parqueadero parqueadero = new Parqueadero("Las clinas", 5, 3, tarifa);
         assertTrue(parqueadero.ubicarVehiculo(0, 0, moto1));
         assertFalse(parqueadero.ubicarVehiculo(0, 0, moto2));
@@ -58,7 +58,7 @@ public class ParqueaderoTest {
     public void registroPuesto() {
         Tarifa tarifa = new Tarifa(4000, 3000, 2000);
         Propietario propietario = new Propietario("James", "1037183721", "Calle 32 #21", "31218827");
-        Vehiculo moto = new Moto("XYZ789", "Honda", tarifa, propietario, TipoMoto.HIBRIDA, 120);
+        Vehiculo moto = new Moto("XYZ789", "Honda",propietario, TipoMoto.HIBRIDA, 120);
         
         assertThrows(AssertionError.class, () -> {
             new Registro(null, moto);
