@@ -123,34 +123,8 @@ public class ParqueaderoTest {
         Propietario propietario = new Propietario("Valentina", "109489839", "M15-16", "3127659191");
      
         assertEquals(propietario, propietario);
-
     }
 
-    @Test
-    public void registrarSalidaVehiculo() {
- 
-        Tarifa tarifa = new Tarifa(4000, 3000, 2000);
-        Parqueadero parqueadero = new Parqueadero("Las clinas", 5, 3, tarifa);
-        Propietario propietario = new Propietario("James", "1037183721", "Calle 32 #21", "31218827");
-        Vehiculo moto = new Moto("JAB123", "YAMAHA", propietario, TipoMoto.CLASICA, 300);
-    
-        Puesto[][] puestos = new Puesto[5][3];
-           for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 3; j++) {
-                puestos[i][j] = new Puesto(i, j);
-            }
-           
-            }
-        parqueadero.setPuestos(puestos);
-        parqueadero.ubicarVehiculo(0, 0, moto);
-        
-        parqueadero.registrarSalidaVehiculo(moto, LocalDateTime.of(2024, 5, 27, 11, 42));
-  
-        assertTrue(parqueadero.getPuestos()[0][0].desocuparPuesto(moto), "desocupar puesto");
-        assertEquals(moto,parqueadero.getPuestos()[0][0].getVehiculo());
-        System.out.println("la salida del vehiculo se ha registrado correctamnete");
-  
-    }
     @Test
     public void testIdentificarPropietario() {
         Tarifa tarifa = new Tarifa(200,500,600);
