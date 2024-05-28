@@ -111,9 +111,9 @@ public class ParqueaderoTest {
         parqueadero.ubicarVehiculo(2, 2, motoClasica);
         parqueadero.ubicarVehiculo(3, 3, motoHibrida);
 
-        parqueadero.registrarSalidaVehiculo(carro, LocalDateTime.of(2024, 5, 27, 11, 42));
-        parqueadero.registrarSalidaVehiculo(motoClasica, LocalDateTime.of(2024, 5, 27, 11, 42));
-        parqueadero.registrarSalidaVehiculo(motoHibrida, LocalDateTime.of(2024, 5, 27, 11, 42));
+        parqueadero.registrarSalidaVehiculo(carro, LocalDateTime.of(2024, 5, 29, 11, 42));
+        parqueadero.registrarSalidaVehiculo(motoClasica, LocalDateTime.of(2024, 5, 29, 11, 42));
+        parqueadero.registrarSalidaVehiculo(motoHibrida, LocalDateTime.of(2024, 5, 29, 11, 42));
 
         parqueadero.generarReporteMensual(5, 2024);
         LOG.info("Fin Test");

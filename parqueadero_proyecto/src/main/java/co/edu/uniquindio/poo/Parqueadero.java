@@ -182,9 +182,6 @@ public class Parqueadero {
      * Método que identificar el propietario de un vehículo 
      */
     public Propietario identificarPropietario(int i, int j) {
-        if (i < 0 || i >= filas || j < 0 || j >= columnas) {
-            throw new IllegalArgumentException("El parqueadero no cuenta con ese numero de puestos");
-        }
         Puesto puesto = puestos[i][j];
         if (puesto.noDisponible()) {
             return puesto.getVehiculo().getPropietario();
